@@ -7,8 +7,7 @@ class CustomerService {
                 throw new Error(`Customer with email '${customer.email}' already exists`)
             }
             const createdCustomer = await Customer.create(customer)
-            // return createdProduct
-            return   {Customer: {...createdCustomer._doc}, IsSuccess: true, ErrorMessage: null}
+            return   createdCustomer //{Customer: {...createdCustomer._doc}, IsSuccess: true, ErrorMessage: null}
         }
     
 

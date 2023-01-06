@@ -1,8 +1,7 @@
 import Router from "express";
 import ProductsController from "../controllers/products.controller.js";
-import { productMiddleware } from "../middleware/productmiddleware.js";
+import { productValidations, productById } from "../middleware/productMiddleware.js";
 import { authmiddleware } from "../middleware/authmiddleware.js";
-import { productByIdMiddleware } from "../middleware/productByIdMiddleware.js";
 
 const productsRouter = new Router();
 
@@ -77,14 +76,14 @@ const productsRouter = new Router();
 
 productsRouter.get("/products", ProductsController.getAll);
 
-productsRouter.get("/products/:id", productByIdMiddleware, ProductsController.getProduct);
+productsRouter.get("/products/:id", productById, ProductsController.getProduct);
 
-productsRouter.post("/products", productMiddleware, ProductsController.create);
+productsRouter.post("/products", productValidations, ProductsController.create);
 
-productsRouter.put("/products", productByIdMiddleware, productMiddleware, ProductsController.update);
+productsRouter.put("/products", productById, productValidations, ProductsController.update);
 
-productsRouter.patch("/products", productByIdMiddleware, ProductsController.partiallyUpdate);
+productsRouter.patch("/products", productById, ProductsController.partiallyUpdate);
 
-productsRouter.delete("/products/:id", productByIdMiddleware, ProductsController.delete);
+productsRouter.delete("/products/:id", productById, ProductsController.delete);
 
 export default productsRouter;

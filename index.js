@@ -4,6 +4,7 @@ import router from "./routers/router.js"
 import productsRouter from "./routers/products.router.js";
 import customerRouter from "./routers/customer.router.js";
 import orderRouter from "./routers/order.router.js";
+import orderStatusRouter from "./routers/orderStatus.router.js";
 import authRouter from "./routers/auth.router.js";
 import fileUpload from "express-fileupload";
 import swaggerDocs from './utils/swagger.js'
@@ -46,30 +47,32 @@ const BASE_URL = process.env.ENVIRONMENT || 'http://127.0.0.1:5502'
 app.use(express.json())
 app.use(express.static('static'))
 app.use(fileUpload({}))
-app.use(function (req, res, next) {
 
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', BASE_URL);
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
-    next();
-});
 // app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs))
 app.use('/api', router)
 app.use('/api', productsRouter)
 app.use('/api', authRouter)
 app.use('/api', customerRouter)
 app.use('/api', orderRouter)
+app.use('/api', orderStatusRouter)
+// app.use(function (req, res, next) {
+
+//     // Website you wish to allow to connect
+//     res.setHeader('Access-Control-Allow-Origin', BASE_URL);
+
+//     // Request methods you wish to allow
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+//     // Request headers you wish to allow
+//     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+//     // Set to true if you need the website to include cookies in the requests sent
+//     // to the API (e.g. in case you use sessions)
+//     res.setHeader('Access-Control-Allow-Credentials', true);
+
+//     // Pass to next layer of middleware
+//     next();
+// });
 
 
 async function startApp() {
